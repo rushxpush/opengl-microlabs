@@ -20,7 +20,7 @@ sudo apt install build-essential cmake libgl1-mesa-dev libglu1-mesa-dev
 gcc ./src/main.c ./lib/glad.c -Iinclude -o ./bin/main -lglfw -lGL -lX11 -lpthread -lXrandr -lXi -ldl
 ```
 
-## Tutoring
+## Tutorial
 
 ```bash
 # 01 - Hello Window

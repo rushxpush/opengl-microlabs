@@ -27,6 +27,8 @@ enum usage
   GL_DYNAMIC_DRAW
 };
 
+void glGenBuffers(int size, unsigned int* vbo);
+
 void glBindBuffer(unsigned int* vbo);
 
 void glBufferData(enum mode mode, int size, float vertices[], enum usage usage);
@@ -41,6 +43,8 @@ int main()
 
   unsigned int vbo;
 
+  glGenBuffers(1, &vbo);
+
   glBindBuffer(&vbo);
 
   glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
@@ -48,8 +52,9 @@ int main()
   return 0;
 }
 
-void glBindBuffer(unsigned int* vbo) 
-{
+void glGenBuffers(int size, unsigned int* vbo) {
+  // TODO - generate more than one buffer
+
   int id = -1;
 
   for (int i = 0; i < sizeof(ctx.gl_array_buffer) / sizeof(struct Buffer); i++) 
@@ -68,7 +73,10 @@ void glBindBuffer(unsigned int* vbo)
     return;
   }
 
-  ctx.current_array_buffer = id;
+}
+
+void glBindBuffer(unsigned int* vbo) 
+{
   ctx.gl_array_buffer[ctx.current_array_buffer].size = 1000; // I added this because I don't know if I should initialize the size dynamically or statically
 
   *vbo = ctx.current_array_buffer;
