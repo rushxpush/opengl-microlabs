@@ -43,6 +43,8 @@ void glBufferData(enum mode mode, int size, float vertices[], enum usage usage);
 
 void glGenVertexArrays(int size, unsigned int* vao);
 
+void glBindVertexArray(unsigned vao);
+
 int main() 
 {
   float vertices[] = {
@@ -55,6 +57,7 @@ int main()
   unsigned int vao;
 
   glGenVertexArrays(1, &vao);
+  glBindVertexArray(vao);
   glGenBuffers(1, &vbo);
 
   glBindBuffer(&vbo);
@@ -89,9 +92,8 @@ void glGenBuffers(int size, unsigned int* vbo) {
 
 void glBindBuffer(unsigned int* vbo) 
 {
-  ctx.gl_array_buffer[ctx.current_array_buffer].size = 1000; 
-
   ctx.current_array_buffer = *vbo;
+  ctx.gl_array_buffer[ctx.current_array_buffer].size = 1000; 
 }
 
 void glBufferData(enum mode mode, int size, float vertices[], enum usage usage) 
@@ -139,4 +141,9 @@ void glGenVertexArrays(int size, unsigned int* vao)
     printf("No free space left!\n");
     return;
   }
+}
+
+void glBindVertexArray(unsigned vao) {
+  ctx.current_vertex_array_buffer = vao;
+  ctx.gl_vertex_array_buffer[ctx.current_vertex_array_buffer].size = 1000;
 }
